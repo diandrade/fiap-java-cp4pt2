@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    ```
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mercado Express</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 25px 50px;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        header p {
+            margin-top: 5px;
+            color: #d1d5db;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .button-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f3f4f6;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit {
+            background: #f59e0b;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background: #dc2626;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #e5e7eb;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 800px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+        }
+
+    </style>
+    ```
+
+</head>
+
+<body>
+
+<header>
+
+    ```
+    <h1>🛒 Mercado Express</h1>
+
+    <p>
+        Sistema de gerenciamento de produtos
+    </p>
+    ```
+
+</header>
+
+<main>
+
+    ```
+    <section class="container">
+
+        <h2>➕ Cadastrar Produto</h2>
+
+        <form th:action="@{/mercado/web}"
+              method="post">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="nome">
+                        Nome
+                    </label>
+
+                    <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            placeholder="Ex: Arroz"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="tipo">
+                        Tipo
+                    </label>
+
+                    <input
+                            type="text"
+                            id="tipo"
+                            name="tipo"
+                            placeholder="Ex: Alimentício"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="setor">
+                        Setor
+                    </label>
+
+                    <input
+                            type="text"
+                            id="setor"
+                            name="setor"
+                            placeholder="Ex: Mercearia"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="tamanho">
+                        Tamanho
+                    </label>
+
+                    <input
+                            type="text"
+                            id="tamanho"
+                            name="tamanho"
+                            placeholder="Ex: 5kg"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="preco">
+                        Preço
+                    </label>
+
+                    <input
+                            type="number"
+                            id="preco"
+                            name="preco"
+                            step="0.01"
+                            min="0"
+                            placeholder="Ex: 25.90"
+                            required>
+
+                </div>
+
+            </div>
+
+            <button
+                    type="submit"
+                    class="button button-primary">
+
+                Cadastrar produto
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <section class="container">
+
+        <h2>📦 Produtos cadastrados</h2>
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Setor</th>
+                <th>Tamanho</th>
+                <th>Preço</th>
+                <th>Ações</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="produto : ${produtos}">
+
+                <td th:text="${produto.id}">
+                    1
+                </td>
+
+                <td th:text="${produto.nome}">
+                    Arroz
+                </td>
+
+                <td>
+
+                <span
+                        class="badge"
+                        th:text="${produto.tipo}">
+
+                    Alimentício
+
+                </span>
+
+                </td>
+
+                <td th:text="${produto.setor}">
+                    Mercearia
+                </td>
+
+                <td th:text="${produto.tamanho}">
+                    5kg
+                </td>
+
+                <td th:text="${'R$ ' + produto.preco}">
+                    R$ 25.90
+                </td>
+
+                <td>
+
+                    <div class="actions">
+
+                        <a
+                                th:href="@{'#editar-' + ${produto.id}}"
+                                class="btn-edit">
+
+                            ✏️ Editar
+
+                        </a>
+
+                        <form
+                                th:action="@{'/mercado/web/deletar/' + ${produto.id}}"
+                                method="post">
+
+                            <button
+                                    type="submit"
+                                    class="btn-delete"
+                                    onclick="return confirm('Deseja realmente excluir este produto?');">
+
+                                🗑️ Excluir
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(produtos)}">
+
+                <td
+                        colspan="7"
+                        class="empty">
+
+                    Nenhum produto cadastrado.
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <section
+            th:each="produto : ${produtos}"
+            class="container"
+            th:id="${'editar-' + produto.id}">
+
+        <h2>
+
+            ✏️ Editar produto
+
+            <span th:text="${'#' + produto.id}">
+            #1
+        </span>
+
+        </h2>
+
+        <form
+                th:action="@{'/mercado/web/atualizar/' + ${produto.id}}"
+                method="post">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Nome
+                    </label>
+
+                    <input
+                            type="text"
+                            name="nome"
+                            th:value="${produto.nome}"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Tipo
+                    </label>
+
+                    <input
+                            type="text"
+                            name="tipo"
+                            th:value="${produto.tipo}"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Setor
+                    </label>
+
+                    <input
+                            type="text"
+                            name="setor"
+                            th:value="${produto.setor}"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Tamanho
+                    </label>
+
+                    <input
+                            type="text"
+                            name="tamanho"
+                            th:value="${produto.tamanho}"
+                            required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Preço
+                    </label>
+
+                    <input
+                            type="number"
+                            name="preco"
+                            step="0.01"
+                            min="0"
+                            th:value="${produto.preco}"
+                            required>
+
+                </div>
+
+            </div>
+
+            <button
+                    type="submit"
+                    class="button button-primary">
+
+                💾 Salvar alterações
+
+            </button>
+
+        </form>
+
+    </section>
+    ```
+
+</main>
+
+<footer>
+
+    ```
+    Mercado Express
+
+    <br>
+
+    Spring Boot + Thymeleaf
+    ```
+
+</footer>
+
+</body>
+
+</html>
