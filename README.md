@@ -22,11 +22,11 @@ A aplicação disponibiliza:
 
 ## 👥 Integrantes do Grupo
 
-* **Diego Andrade dos Santos** — RM: 566385
-* **Grazielle de Alencar Silva** — RM: 561529
-* **Julia Côrrea Souza** — RM: 564870
-* **Rafael Kubagawa Ramos** — RM: 565572
-* **Vinicius Soteras Braga** — RM: 566230
+* **Diego Andrade dos Santos** - RM: 566385
+* **Grazielle de Alencar Silva** - RM: 561529
+* **Julia Côrrea Souza** - RM: 564870
+* **Rafael Kubagawa Ramos** - RM: 565572
+* **Vinicius Soteras Braga** - RM: 566230
 
 > **IDE utilizada para o desenvolvimento:** IntelliJ IDEA
 
@@ -149,11 +149,7 @@ Repository
 Database
 ```
 
-Essa organização permite separar as responsabilidades da aplicação, facilitando a manutenção, evolução e reutilização do código.
-
----
-
-## 🌐 API REST
+### API REST
 
 A API REST está disponível através do endpoint base:
 
@@ -161,10 +157,11 @@ A API REST está disponível através do endpoint base:
 /mercado
 ```
 
-### Endpoints
+Exemplos:
 
 ```text
 GET     /mercado
+
 GET     /mercado/{id}
 
 POST    /mercado
@@ -172,23 +169,21 @@ POST    /mercado
 PUT     /mercado/{id}
 
 PATCH   /mercado/{id}/nome
+
 PATCH   /mercado/{id}/tipo
+
 PATCH   /mercado/{id}/setor
+
 PATCH   /mercado/{id}/tamanho
+
 PATCH   /mercado/{id}/preco
 
 DELETE  /mercado/{id}
 ```
 
-A API permite realizar o gerenciamento completo dos produtos cadastrados.
+### Interface Web
 
----
-
-## 🖥️ Interface Web
-
-A interface web foi desenvolvida utilizando **Spring MVC e Thymeleaf**.
-
-O endpoint principal da aplicação web é:
+A interface desenvolvida com Spring MVC e Thymeleaf está disponível em:
 
 ```text
 /mercado/web
@@ -201,23 +196,13 @@ A interface permite:
 * Atualizar produtos;
 * Excluir produtos.
 
-O template principal está localizado em:
-
-```text
-src/main/resources/templates/index.html
-```
-
-A página foi desenvolvida utilizando uma interface simples e responsiva para facilitar o gerenciamento dos produtos.
-
-### 📸 Interface da aplicação
-
-![Interface do Mercado Express](./imagens/interface.png)
-
 ---
 
 ## 🔐 Spring Security
 
 O projeto utiliza **Spring Security** para controle de acesso às funcionalidades da aplicação.
+
+As rotas são configuradas de acordo com a necessidade de acesso público ou autenticado.
 
 A configuração de segurança está localizada em:
 
@@ -225,32 +210,33 @@ A configuração de segurança está localizada em:
 src/main/java/fiap/com/tdspo/mexpress/config/SecurityConfig.java
 ```
 
-O Spring Security é responsável por integrar os mecanismos de autenticação e autorização da aplicação, permitindo definir quais recursos podem ser acessados publicamente e quais necessitam de autenticação.
+O objetivo da implementação é demonstrar a utilização do mecanismo de autenticação e autorização fornecido pelo Spring Security.
 
 ---
 
-## 🧪 Validação de Dados
+## 🌐 Interface Web com Thymeleaf
 
-A aplicação utiliza **Jakarta Validation** para validar os dados recebidos nos DTOs.
+A interface gráfica foi desenvolvida utilizando **Thymeleaf**, permitindo que o Spring MVC envie os dados dos produtos diretamente para o template HTML.
 
-A validação é realizada através das anotações disponibilizadas pela especificação, garantindo que os dados enviados para criação e atualização de produtos atendam aos requisitos definidos pela aplicação.
+O principal template da aplicação está localizado em:
 
-A dependência utilizada é:
-
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-validation</artifactId>
-</dependency>
+```text
+src/main/resources/templates/index.html
 ```
 
+A página apresenta uma interface simples para gerenciamento dos produtos.
+
+### 📸 Interface da aplicação
+
+![Interface do Mercado Express](./imagens/interface.png)
+
 ---
 
-## 🔗 HATEOAS
+## 🧪 API REST e HATEOAS
 
-A API utiliza **Spring HATEOAS** para disponibilizar links relacionados aos recursos retornados.
+A API REST mantém os recursos desenvolvidos na Parte I do projeto.
 
-Dessa forma, além dos dados do produto, a resposta pode apresentar links para operações relacionadas ao recurso.
+As respostas utilizam **HATEOAS**, fornecendo links relacionados às operações disponíveis para cada recurso.
 
 ### Exemplo de resposta
 
@@ -287,44 +273,38 @@ Dessa forma, além dos dados do produto, a resposta pode apresentar links para o
 
 * Java 21;
 * Maven;
-* Docker, caso deseje executar através de container;
+* Docker, caso deseje executar através do container;
 * Acesso ao banco Oracle.
 
-### Clonando o projeto
+### Executando pela IDE
+
+Clone o repositório:
 
 ```bash
 git clone https://github.com/diandrade/fiap-java-cp4pt2.git
 ```
 
-Entre no diretório da aplicação:
+Entre no diretório do projeto:
 
 ```bash
 cd fiap-java-cp4pt2/mexpress
 ```
 
-### Executando com Maven
-
-Linux/macOS:
+Execute a aplicação pela IDE ou utilizando o Maven:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-Windows:
+Por padrão, a aplicação utiliza a porta configurada no `application.properties`.
 
-```bash
-mvnw.cmd spring-boot:run
-```
-
-A porta utilizada pela aplicação é definida no `application.properties`.
-
-### Interface Web
+A interface web pode ser acessada em:
 
 ```text
 http://localhost:8080/mercado/web
 ```
 
-### API REST
+A API REST pode ser acessada em:
 
 ```text
 http://localhost:8080/mercado
@@ -336,20 +316,27 @@ http://localhost:8080/mercado
 
 O projeto possui um `Dockerfile` para criação da imagem da aplicação.
 
-A estrutura atual do repositório é:
+A estrutura do repositório é:
 
 ```text
 fiap-java-cp4pt2/
+
 ├── Dockerfile
+
 ├── README.md
+
 └── mexpress/
+
     ├── pom.xml
+
     ├── mvnw
+
     ├── .mvn/
+
     └── src/
 ```
 
-Como o `Dockerfile` está na raiz e o código da aplicação está dentro de `mexpress`, a imagem pode ser construída utilizando o diretório `mexpress` como contexto:
+Como o `Dockerfile` está localizado na raiz do repositório e o projeto Spring Boot está dentro da pasta `mexpress`, o build deve utilizar `mexpress` como contexto:
 
 ```bash
 docker build -f Dockerfile -t mercado-express mexpress
@@ -373,27 +360,25 @@ http://localhost:8080/mercado/web
 
 A aplicação foi containerizada utilizando **Docker** e disponibilizada em ambiente de produção através da plataforma **Render**.
 
-### 🚀 Plataforma utilizada
-
-**Render**
-
 ### 🔗 Link do Deploy
 
-https://fiap-java-cp4pt2-1.onrender.com
+👉 https://fiap-java-cp4pt2-1.onrender.com
 
-### 🖥️ Interface Web em produção
+A interface web pode ser acessada através de:
 
 ```text
 https://fiap-java-cp4pt2-1.onrender.com/mercado/web
 ```
 
-### 🔌 API REST em produção
+A API REST está disponível em:
 
 ```text
 https://fiap-java-cp4pt2-1.onrender.com/mercado
 ```
 
 ### 🚢 Processo de Deploy
+
+O processo utilizado é:
 
 ```text
 GitHub
@@ -409,9 +394,9 @@ Spring Boot
 Aplicação Web + API REST
 ```
 
-O Render realiza o build da aplicação utilizando o `Dockerfile` e executa o container em ambiente de produção.
+O Render realiza o build da aplicação a partir do `Dockerfile` e executa o container em ambiente de produção.
 
-A porta da aplicação é definida através da variável de ambiente `PORT` fornecida pelo ambiente de deploy.
+A porta utilizada pela aplicação é definida através da variável de ambiente `PORT` fornecida pelo ambiente de deploy.
 
 ---
 
@@ -429,32 +414,38 @@ A porta da aplicação é definida através da variável de ambiente `PORT` forn
 
 ![Evidência da API REST](./imagens/post-produto.png)
 
-### Deploy no Render
+### Deploy
 
 ![Deploy no Render](./imagens/render.png)
 
 ---
 
-## 📚 Links da Entrega
+## 📚 Repositórios e Links da Entrega
 
 ### CP4 — Parte I
 
 **GitHub:**
 https://github.com/BragaSoterasVinicius/cp4pt1
 
-### CP4 — Parte II
+### CP4 — Parte II — Spring MVC
 
 **GitHub:**
 https://github.com/diandrade/fiap-java-cp4pt2
 
-**Deploy — Render:**
+### 🚀 Deploy — CP4 Parte II
+
+**Plataforma utilizada:** Render
+
+**Link:**
 https://fiap-java-cp4pt2-1.onrender.com
 
-**Vídeo de demonstração — Google Drive:**
+### 🎥 Vídeo de Demonstração — CP4 Parte II
+
+**Google Drive:**
 https://drive.google.com/file/d/1K0iyqK-HiNOCxIoTVldMzscYIDyMLiWs/view?usp=sharing
 
 ---
 
 > *"Quem ouve, esquece. Quem vê, lembra. Quem faz, aprende."*
->
-> **— Provérbio chinês**
+
+**— Provérbio chinês**
